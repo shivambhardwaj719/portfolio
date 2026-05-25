@@ -5,9 +5,17 @@ import Link from "next/link";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const typewriterRef = useRef<HTMLSpanElement>(null);
 
   const expMonths = Math.max(0, (new Date().getFullYear() - 2024) * 12 + (new Date().getMonth() - 6));
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
 
   // Cursor glow effect
   useEffect(() => {
@@ -34,7 +42,7 @@ export default function Home() {
 
   // Typewriter effect
   useEffect(() => {
-    const roles = ["Software Engineer", "AI Engineer", "System Designe"];
+    const roles = ["Software Engineer", "AI Engineer", "System Designer"];
     let roleIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -125,7 +133,7 @@ export default function Home() {
     };
   }, []);
 
-  // Active Nav Link mapping & scroll handling
+  // Active Nav Link + scroll tracking
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll('section');
@@ -140,13 +148,14 @@ export default function Home() {
       });
 
       setActiveSection(current);
+      setShowScrollTop(window.scrollY > 400);
 
       const nav = document.getElementById('navbar');
       if (nav) {
         if (window.scrollY > 50) {
-          nav.style.padding = '1rem 2rem';
+          nav.style.padding = '0.85rem 2.5rem';
         } else {
-          nav.style.padding = '1.5rem 2rem';
+          nav.style.padding = '1.5rem 2.5rem';
         }
       }
     };
@@ -169,7 +178,6 @@ export default function Home() {
     const autoScroll = () => {
       if (!isHovered && !isDown) {
         slider.scrollLeft += 1;
-        // Reset when reaching the end
         if (slider.scrollLeft >= slider.scrollWidth - slider.clientWidth - 1) {
           slider.scrollLeft = 0;
         }
@@ -179,7 +187,6 @@ export default function Home() {
 
     animationId = requestAnimationFrame(autoScroll);
 
-    // Mouse Events
     slider.addEventListener('mouseenter', () => isHovered = true);
     slider.addEventListener('mouseleave', () => { isHovered = false; isDown = false; });
     slider.addEventListener('mousedown', (e) => {
@@ -199,6 +206,15 @@ export default function Home() {
     return () => cancelAnimationFrame(animationId);
   }, []);
 
+  const navItems = [
+    { id: "hero", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "skills", label: "Skills" },
+    { id: "projects", label: "Projects" },
+    { id: "experience", label: "Experience" },
+    { id: "contact", label: "Contact" },
+  ];
+
   return (
     <>
       {/* Texture Overlay */}
@@ -207,16 +223,40 @@ export default function Home() {
       {/* Custom Cursor Glow */}
       <div className="cursor-glow" id="cursorGlow"></div>
 
+      {/* Mobile Menu */}
+      <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
+        {navItems.map(({ id, label }) => (
+          <Link
+            key={id}
+            href={`#${id}`}
+            className={activeSection === id ? "active" : ""}
+            onClick={() => setMenuOpen(false)}
+          >
+            {label}
+          </Link>
+        ))}
+      </div>
+
       {/* Navigation */}
       <nav id="navbar">
+        <Link href="#hero" className="nav-brand" onClick={() => setMenuOpen(false)}>SB</Link>
         <ul className="nav-links">
-          <li><Link href="#hero" className={activeSection === "hero" ? "active" : ""}>Home</Link></li>
-          <li><Link href="#about" className={activeSection === "about" ? "active" : ""}>About</Link></li>
-          <li><Link href="#skills" className={activeSection === "skills" ? "active" : ""}>Skills</Link></li>
-          <li><Link href="#projects" className={activeSection === "projects" ? "active" : ""}>Projects</Link></li>
-          <li><Link href="#experience" className={activeSection === "experience" ? "active" : ""}>Experience</Link></li>
-          <li><Link href="#contact" className={activeSection === "contact" ? "active" : ""}>Contact</Link></li>
+          {navItems.map(({ id, label }) => (
+            <li key={id}>
+              <Link href={`#${id}`} className={activeSection === id ? "active" : ""}>{label}</Link>
+            </li>
+          ))}
         </ul>
+        <button
+          className={`hamburger ${menuOpen ? 'open' : ''}`}
+          onClick={() => setMenuOpen(prev => !prev)}
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </nav>
 
       <div className="container">
@@ -224,9 +264,14 @@ export default function Home() {
         {/* HERO SECTION */}
         <section id="hero">
           <div className="hero-bg-grid"></div>
+          <div className="orb orb-1"></div>
+          <div className="orb orb-2"></div>
 
           <div className="hero-content reveal">
-            <span className="greeting">~$ whoami<br /><span style={{ color: "var(--text-primary)", fontWeight: 600, fontSize: "1.5rem" }}>Shivam Bhardwaj</span></span>
+            <span className="greeting">
+              ~$ whoami<br />
+              <span className="gradient-text" style={{ fontWeight: 700, fontSize: "1.6rem" }}>Shivam Bhardwaj</span>
+            </span>
             <h1>Architecting Robust Systems</h1>
 
             <div className="typewriter-container">
@@ -265,15 +310,16 @@ export default function Home() {
 
         {/* ABOUT SECTION */}
         <section id="about">
+          <span className="section-label reveal">01 / About</span>
           <h2 className="reveal">About Me</h2>
 
           <div className="about-grid">
             <div className="bio reveal delay-1">
               <p className="bio-text">
-                I'm a Backend Developer with <span>2 years of hands-on experience</span> building scalable web applications — focusing on robust architectures, secure APIs, and high-performance databases.
+                I&apos;m a Backend Developer with <span>2 years of hands-on experience</span> building scalable web applications — focusing on robust architectures, secure APIs, and high-performance databases.
               </p>
               <p className="bio-text">
-                I've shipped real products used by real people, and I care deeply about <span>system design</span>, <span>query optimization</span>, and <span>backend security</span>.
+                I&apos;ve shipped real products used by real people, and I care deeply about <span>system design</span>, <span>query optimization</span>, and <span>backend security</span>.
               </p>
             </div>
 
@@ -296,14 +342,16 @@ export default function Home() {
 
         {/* SKILLS SECTION */}
         <section id="skills">
+          <span className="section-label reveal">02 / Stack</span>
           <h2 className="reveal">Tech Stack</h2>
 
           <div className="skills-wrapper reveal delay-1">
 
+            <div className="skill-row-label">// Backend &amp; Frameworks</div>
             <div className="marquee-container">
               <div className="marquee-content">
                 {[...Array(2)].map((_, i) => (
-                  <div key={`backend-${i}`} style={{ display: 'flex', gap: '1.5rem' }}>
+                  <div key={`backend-${i}`} style={{ display: 'flex', gap: '1.2rem' }}>
                     <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9h2v9h-2z" /></svg>Django REST</span>
                     <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M11.8 2c-1.3 0-2.6.4-3.7 1L3 6c-1.6.9-2.5 2.6-2.5 4.5v6C.5 18.4 1.4 20 3 21l5.2 3c1.2.7 2.5 1 3.8 1s2.6-.3 3.8-1l5.2-3c1.6-.9 2.5-2.6 2.5-4.5v-6c0-1.9-.9-3.6-2.5-4.5L15.6 3c-1.1-.6-2.4-1-3.8-1zm0 18c-.8 0-1.5-.2-2.1-.6l-4.5-2.6c-1-.6-1.6-1.7-1.6-2.8v-5.2c0-1.1.6-2.2 1.6-2.8l4.5-2.6c1.3-.8 2.9-.8 4.2 0l4.5 2.6c1 .6 1.6 1.7 1.6 2.8v5.2c0 1.1-.6 2.2-1.6 2.8l-4.5 2.6c-.6.4-1.3.6-2.1.6z" /></svg>Node.js</span>
                     <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M19 14.5c0 1.1-.9 2-2 2h-1.5v-2H17v2h-1.5v-2h-3v2H11v-2H9.5v2H8v-2H6.5v2H5c-1.1 0-2-.9-2-2V9.5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v5z" /></svg>Flask</span>
@@ -317,10 +365,11 @@ export default function Home() {
               </div>
             </div>
 
+            <div className="skill-row-label" style={{ marginTop: '0.8rem' }}>// Infrastructure &amp; Tools</div>
             <div className="marquee-container">
               <div className="marquee-content reverse">
                 {[...Array(2)].map((_, i) => (
-                  <div key={`frontend-${i}`} style={{ display: 'flex', gap: '1.5rem' }}>
+                  <div key={`infra-${i}`} style={{ display: 'flex', gap: '1.2rem' }}>
                     <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /></svg>Docker</span>
                     <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-4H9v4H7V8h2v4h2V8h2v8z" /></svg>Redis</span>
                     <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9h2v9h-2z" /></svg>AWS</span>
@@ -338,6 +387,7 @@ export default function Home() {
 
         {/* PROJECTS SECTION */}
         <section id="projects">
+          <span className="section-label reveal">03 / Work</span>
           <h2 className="reveal">Featured Work</h2>
 
           <div className="projects-container-wrapper reveal delay-1">
@@ -353,14 +403,14 @@ export default function Home() {
                     <div className="project-header">
                       <h3 className="project-title">Dr. Vijay ENT Hospital</h3>
                       <div className="project-links">
-                        <a href="https://drvijayenthospital.com/" target="_blank" rel="noopener noreferrer">
-                          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" /></svg>
+                        <a href="https://drvijayenthospital.com/" target="_blank" rel="noopener noreferrer" aria-label="Live site">
+                          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" /></svg>
                         </a>
                       </div>
                     </div>
                     <div className="project-role">Backend Lead</div>
                     <p className="project-desc">
-                      Led backend development for a full-featured ENT hospital platform — architected RESTful APIs powering patient management, appointment scheduling, and clinical workflows. Delivered a robust, scalable system that streamlines hospital operations end-to-end.
+                      Led backend development for a full-featured ENT hospital platform — architected RESTful APIs powering patient management, appointment scheduling, and clinical workflows.
                     </p>
                     <div className="project-tags">
                       <span className="project-tag">Django REST Framework</span>
@@ -381,14 +431,14 @@ export default function Home() {
                     <div className="project-header">
                       <h3 className="project-title">OkCare</h3>
                       <div className="project-links">
-                        <a href="https://okcare.in/" target="_blank" rel="noopener noreferrer">
-                          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" /></svg>
+                        <a href="https://okcare.in/" target="_blank" rel="noopener noreferrer" aria-label="Live site">
+                          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" /></svg>
                         </a>
                       </div>
                     </div>
                     <div className="project-role">Backend Developer</div>
                     <p className="project-desc">
-                      Built backend services for OkCare, a healthcare platform focused on accessible care delivery. Engineered reliable APIs for user management, booking, and service flows — ensuring performance and data integrity at scale.
+                      Built backend services for OkCare, a healthcare platform focused on accessible care delivery. Engineered reliable APIs for user management, booking, and service flows.
                     </p>
                     <div className="project-tags">
                       <span className="project-tag">Django REST Framework</span>
@@ -409,14 +459,14 @@ export default function Home() {
                     <div className="project-header">
                       <h3 className="project-title">HomeLead</h3>
                       <div className="project-links">
-                        <a href="https://homelead.in/" target="_blank" rel="noopener noreferrer">
-                          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" /></svg>
+                        <a href="https://homelead.in/" target="_blank" rel="noopener noreferrer" aria-label="Live site">
+                          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" /></svg>
                         </a>
                       </div>
                     </div>
                     <div className="project-role">Full Stack Integrator</div>
                     <p className="project-desc">
-                      Integrated a complete CRM for real estate builders to manage leads, inventory, documents, and finances. Engineered server-side rendering logic and backend API communication to ensure real-time data flow and high performance.
+                      Integrated a complete CRM for real estate builders to manage leads, inventory, documents, and finances. Engineered SSR logic and backend API communication for real-time data flow.
                     </p>
                     <div className="project-tags">
                       <span className="project-tag">Next.js</span>
@@ -437,14 +487,14 @@ export default function Home() {
                     <div className="project-header">
                       <h3 className="project-title">HRM System</h3>
                       <div className="project-links">
-                        <a href="#" target="_blank" rel="noopener noreferrer">
-                          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" /></svg>
+                        <a href="#" aria-label="Private project">
+                          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" /></svg>
                         </a>
                       </div>
                     </div>
                     <div className="project-role">Full Stack Developer</div>
                     <p className="project-desc">
-                      Designed and built a complete Human Resource Management system from scratch — Node.js REST APIs on the backend handling employee records, payroll, and attendance, paired with a dynamic Next.js frontend delivering a smooth internal tool experience.
+                      Designed and built a complete HRM system from scratch — Node.js REST APIs handling employee records, payroll, and attendance, paired with a dynamic Next.js frontend.
                     </p>
                     <div className="project-tags">
                       <span className="project-tag">Node.js</span>
@@ -464,19 +514,19 @@ export default function Home() {
                   </div>
                   <div className="project-content">
                     <div className="project-header">
-                      <h3 className="project-title">EduCare (Personal Project)</h3>
+                      <h3 className="project-title">EduCare</h3>
                       <div className="project-links">
-                        <a href="https://github.com/shivambhardwaj719/eduPortal" target="_blank" rel="noopener noreferrer" title="Frontend Source Code">
-                          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>
+                        <a href="https://github.com/shivambhardwaj719/eduPortal" target="_blank" rel="noopener noreferrer" title="Frontend repo">
+                          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>
                         </a>
-                        <a href="https://github.com/shivambhardwaj719/school_management_system" target="_blank" rel="noopener noreferrer" title="Backend Source Code">
-                          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>
+                        <a href="https://github.com/shivambhardwaj719/school_management_system" target="_blank" rel="noopener noreferrer" title="Backend repo">
+                          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>
                         </a>
                       </div>
                     </div>
                     <div className="project-role">Full Stack Developer (Solo)</div>
                     <p className="project-desc">
-                      My own initiative — a school management system built with DRF and React. Covers student enrollment, attendance, gradebooks, teacher management, and fee tracking. A complete EdTech product built solo, end-to-end.
+                      A school management system built solo with DRF and React. Covers student enrollment, attendance, gradebooks, teacher management, and fee tracking — end-to-end.
                     </p>
                     <div className="project-tags">
                       <span className="project-tag">Django REST Framework</span>
@@ -494,6 +544,7 @@ export default function Home() {
 
         {/* EXPERIENCE SECTION */}
         <section id="experience">
+          <span className="section-label reveal">04 / Career</span>
           <h2 className="reveal">Experience</h2>
 
           <div className="timeline-container reveal delay-1">
@@ -531,8 +582,9 @@ export default function Home() {
 
         {/* CONTACT SECTION */}
         <section id="contact">
+          <span className="section-label reveal">05 / Contact</span>
           <div className="contact-card reveal delay-1">
-            <h2 className="contact-heading">Let's build something great together.</h2>
+            <h2 className="contact-heading">Let&apos;s build something great together.</h2>
             <p className="contact-subheading">Currently open for new opportunities.</p>
 
             <div className="contact-links">
@@ -561,9 +613,18 @@ export default function Home() {
 
       </div>
 
+      {/* Scroll to Top */}
+      <button
+        className={`scroll-top ${showScrollTop ? 'visible' : ''}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="Back to top"
+      >
+        <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" /></svg>
+      </button>
+
       <footer>
         <div className="container">
-          <p>&copy; 2026 Shivam Bhardwaj.</p>
+          <p>&copy; 2026 Shivam Bhardwaj. Built with Next.js.</p>
         </div>
       </footer>
     </>
