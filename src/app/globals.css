@@ -1,14 +1,14 @@
 /* CSS Variables */
 :root {
-    --bg: #0A0A0F;
-    --surface: #111118;
-    --card: #16161E;
-    --accent-primary: #6C63FF;
-    --accent-secondary: #00D4AA;
-    --accent-glow: rgba(108, 99, 255, 0.15);
+    --bg: #050505;
+    --surface: #0a0a0e;
+    --card: #111116;
+    --accent-primary: #10B981;
+    --accent-secondary: #3B82F6;
+    --accent-glow: rgba(16, 185, 129, 0.15);
     --text-primary: #F0EFF8;
     --text-muted: #7B7A8E;
-    --border: rgba(108, 99, 255, 0.2);
+    --border: rgba(16, 185, 129, 0.2);
 }
 
 /* Base Reset */
@@ -178,13 +178,13 @@ p {
 .btn-primary {
     background: var(--accent-primary);
     color: #fff;
-    box-shadow: 0 4px 15px rgba(108, 99, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
 }
 
 .btn-primary:hover {
     background: #5a52d6;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
 }
 
 .btn-outline {
@@ -197,7 +197,7 @@ p {
     border-color: var(--accent-primary);
     color: var(--accent-primary);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(108, 99, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1);
 }
 
 /* Scroll Reveal */
@@ -233,7 +233,7 @@ p {
     width: 100%;
     height: 100%;
     background-size: 40px 40px;
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-image: radial-gradient(circle, var(--accent-glow) 2px, transparent 2px);
     z-index: -1;
     animation: gridMove 20s linear infinite;
 }
@@ -493,7 +493,7 @@ p {
 .skill-tag:hover {
     border-color: var(--accent-primary);
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(108, 99, 255, 0.2);
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.2);
     color: var(--accent-secondary);
 }
 
@@ -688,7 +688,7 @@ p {
 .project-tag {
     font-size: 0.75rem;
     color: var(--accent-primary);
-    background: rgba(108, 99, 255, 0.1);
+    background: rgba(16, 185, 129, 0.1);
     padding: 0.3rem 0.8rem;
     border-radius: 4px;
     font-family: var(--font-code);
@@ -746,7 +746,7 @@ p {
     color: var(--accent-secondary);
     margin-bottom: 0.5rem;
     display: inline-block;
-    background: rgba(0, 212, 170, 0.1);
+    background: rgba(59, 130, 246, 0.1);
     padding: 0.2rem 0.6rem;
     border-radius: 4px;
 }
@@ -807,8 +807,8 @@ p {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(circle at top right, rgba(108, 99, 255, 0.1), transparent 60%),
-                radial-gradient(circle at bottom left, rgba(0, 212, 170, 0.05), transparent 60%);
+    background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.1), transparent 60%),
+                radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.05), transparent 60%);
     pointer-events: none;
 }
 

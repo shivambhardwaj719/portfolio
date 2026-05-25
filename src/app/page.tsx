@@ -34,7 +34,7 @@ export default function Home() {
 
   // Typewriter effect
   useEffect(() => {
-    const roles = ["Full Stack Developer", "Django & Node.js Engineer", "React & Next.js Builder"];
+    const roles = ["Software Engineer", "AI Engineer", "System Designe"];
     let roleIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -226,8 +226,8 @@ export default function Home() {
           <div className="hero-bg-grid"></div>
 
           <div className="hero-content reveal">
-            <span className="greeting">Hi, I'm <span style={{ color: "var(--text-primary)", fontWeight: 600 }}>Shivam Bhardwaj</span> 👋</span>
-            <h1>Crafting Digital Experiences</h1>
+            <span className="greeting">~$ whoami<br /><span style={{ color: "var(--text-primary)", fontWeight: 600, fontSize: "1.5rem" }}>Shivam Bhardwaj</span></span>
+            <h1>Architecting Robust Systems</h1>
 
             <div className="typewriter-container">
               <span id="typewriter" className="typewriter" ref={typewriterRef}></span>
@@ -237,9 +237,9 @@ export default function Home() {
               <Link href="#projects" className="btn btn-primary">
                 View Projects
               </Link>
-              <Link href="#contact" className="btn btn-outline">
+              <a href="/shivambhardwaj.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
                 Download CV
-              </Link>
+              </a>
             </div>
 
             <div className="social-links">
@@ -270,10 +270,10 @@ export default function Home() {
           <div className="about-grid">
             <div className="bio reveal delay-1">
               <p className="bio-text">
-                I'm a Full Stack Developer with <span>2 years of hands-on experience</span> building scalable web applications — from pixel-perfect frontends to robust backend systems.
+                I'm a Backend Developer with <span>2 years of hands-on experience</span> building scalable web applications — focusing on robust architectures, secure APIs, and high-performance databases.
               </p>
               <p className="bio-text">
-                I've shipped real products used by real people, and I care deeply about <span>clean code</span>, <span>fast performance</span>, and seamless <span>user experience</span>.
+                I've shipped real products used by real people, and I care deeply about <span>system design</span>, <span>query optimization</span>, and <span>backend security</span>.
               </p>
             </div>
 
@@ -321,13 +321,13 @@ export default function Home() {
               <div className="marquee-content reverse">
                 {[...Array(2)].map((_, i) => (
                   <div key={`frontend-${i}`} style={{ display: 'flex', gap: '1.5rem' }}>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /></svg>React.js</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-4H9v4H7V8h2v4h2V8h2v8z" /></svg>Next.js</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9h2v9h-2z" /></svg>Redux / RTK</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 0h6v6h-6z" /></svg>TanStack Query</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M19 14.5c0 1.1-.9 2-2 2h-1.5v-2H17v2h-1.5v-2h-3v2H11v-2H9.5v2H8v-2H6.5v2H5c-1.1 0-2-.9-2-2V9.5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v5z" /></svg>WebRTC</span>
+                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /></svg>Docker</span>
+                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-4H9v4H7V8h2v4h2V8h2v8z" /></svg>Redis</span>
+                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9h2v9h-2z" /></svg>AWS</span>
+                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 0h6v6h-6z" /></svg>Nginx</span>
+                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M19 14.5c0 1.1-.9 2-2 2h-1.5v-2H17v2h-1.5v-2h-3v2H11v-2H9.5v2H8v-2H6.5v2H5c-1.1 0-2-.9-2-2V9.5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v5z" /></svg>Linux</span>
                     <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13h-13L12 6.5z" /></svg>Socket.IO</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /></svg>Git & Agile</span>
+                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /></svg>CI/CD Pipelines</span>
                   </div>
                 ))}
               </div>
@@ -414,9 +414,9 @@ export default function Home() {
                         </a>
                       </div>
                     </div>
-                    <div className="project-role">Frontend Developer</div>
+                    <div className="project-role">Full Stack Integrator</div>
                     <p className="project-desc">
-                      Developed the complete frontend for HomeLead using Next.js — A complete CRM for real estate builders to manage leads, inventory, documents, and finances. Built responsive, SEO-optimized pages with clean UI/UX. Translated design concepts into fast, interactive web experiences.
+                      Integrated a complete CRM for real estate builders to manage leads, inventory, documents, and finances. Engineered server-side rendering logic and backend API communication to ensure real-time data flow and high performance.
                     </p>
                     <div className="project-tags">
                       <span className="project-tag">Next.js</span>
