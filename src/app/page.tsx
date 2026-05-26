@@ -11,13 +11,16 @@ export default function Home() {
 
   const expMonths = Math.max(0, (new Date().getFullYear() - 2024) * 12 + (new Date().getMonth() - 6));
 
-  // Lock body scroll when mobile menu is open
+  const devStartDate = new Date(2025, 0);
+  const devExpMonths = Math.max(0, (new Date().getFullYear() - devStartDate.getFullYear()) * 12 + (new Date().getMonth() - devStartDate.getMonth()));
+  const expYears = (devExpMonths / 12).toFixed(1).replace('.0', '');
+  const expText = devExpMonths >= 12 ? `${expYears} year${expYears === '1' ? '' : 's'}` : `${devExpMonths} months`;
+
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
-  // Cursor glow effect
   useEffect(() => {
     const cursor = document.getElementById('cursorGlow');
     if (!cursor) return;
@@ -40,7 +43,6 @@ export default function Home() {
     };
   }, []);
 
-  // Typewriter effect
   useEffect(() => {
     const roles = ["Software Engineer", "AI Engineer", "System Designer"];
     let roleIndex = 0;
@@ -82,7 +84,6 @@ export default function Home() {
     return () => clearTimeout(timeoutId);
   }, []);
 
-  // Scroll Reveal and Counter
   useEffect(() => {
     const revealOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
     const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -316,7 +317,7 @@ export default function Home() {
           <div className="about-grid">
             <div className="bio reveal delay-1">
               <p className="bio-text">
-                I&apos;m a Backend Developer with <span>2 years of hands-on experience</span> building scalable web applications — focusing on robust architectures, secure APIs, and high-performance databases.
+                I&apos;m a Software Developer with <span>{expText} of hands-on experience</span> building scalable web applications — focusing on robust architectures, secure APIs, and high-performance databases.
               </p>
               <p className="bio-text">
                 I&apos;ve shipped real products used by real people, and I care deeply about <span>system design</span>, <span>query optimization</span>, and <span>backend security</span>.
@@ -436,7 +437,7 @@ export default function Home() {
                         </a>
                       </div>
                     </div>
-                    <div className="project-role">Backend Developer</div>
+                    <div className="project-role">Software Developer</div>
                     <p className="project-desc">
                       Built backend services for OkCare, a healthcare platform focused on accessible care delivery. Engineered reliable APIs for user management, booking, and service flows.
                     </p>

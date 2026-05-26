@@ -13,8 +13,8 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio | Full Stack Developer",
-  description: "I'm a Full Stack Developer with 2 years of hands-on experience building scalable web applications.",
+  title: "Shivam Bhardwaj | Portfolio",
+  description: "I'm a Software Developer with a passion for building innovative and user-friendly applications.",
 };
 
 export default function RootLayout({
