@@ -13,6 +13,7 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://bhardwaj-shivam-portfolio.netlify.app'),
   title: "Shivam Bhardwaj | Python Developer & AI Developer",
   description: "Portfolio of Shivam Bhardwaj, a passionate Python Developer and AI Developer specializing in building scalable web applications, robust APIs, and intelligent systems.",
   keywords: [
@@ -47,8 +48,25 @@ export const metadata: Metadata = {
     description: "Portfolio of Shivam Bhardwaj, a passionate Python Developer and AI Developer.",
     url: "https://bhardwaj-shivam-portfolio.netlify.app/",
     siteName: "Shivam Bhardwaj Portfolio",
+    images: [
+      {
+        url: '/profile.png',
+        width: 800,
+        height: 600,
+        alt: 'Shivam Bhardwaj Portfolio',
+      },
+    ],
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Shivam Bhardwaj | Python Developer & AI Developer",
+    description: "Portfolio of Shivam Bhardwaj, a passionate Python Developer and AI Developer.",
+    images: ['/profile.png'],
+  },
+  alternates: {
+    canonical: "https://bhardwaj-shivam-portfolio.netlify.app/",
   },
 };
 
