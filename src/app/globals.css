@@ -26,6 +26,18 @@ body {
     scroll-behavior: smooth;
 }
 
+/* Visually Hidden Class for SEO */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
 /* Gradient Text */
 .gradient-text {
     background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
@@ -336,7 +348,7 @@ section {
     justify-content: center;
 }
 
-h1 {
+h1, .h1-style {
     font-size: clamp(2.5rem, 5vw, 4.5rem);
     font-weight: 700;
     line-height: 1.1;

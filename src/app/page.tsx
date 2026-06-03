@@ -269,11 +269,12 @@ export default function Home() {
           <div className="orb orb-2"></div>
 
           <div className="hero-content reveal">
+            <h1 className="visually-hidden">Shivam Bhardwaj - Python Developer & AI Developer</h1>
             <span className="greeting">
               ~$ whoami<br />
               <span className="gradient-text" style={{ fontWeight: 700, fontSize: "1.6rem" }}>Shivam Bhardwaj</span>
             </span>
-            <h1>Architecting Robust Systems</h1>
+            <div className="h1-style">Architecting Robust Systems</div>
 
             <div className="typewriter-container">
               <span id="typewriter" className="typewriter" ref={typewriterRef}></span>

@@ -13,8 +13,19 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "Shivam Bhardwaj | Portfolio",
-  description: "I'm a Software Developer with a passion for building innovative and user-friendly applications.",
+  title: "Shivam Bhardwaj | Python Developer & AI Developer",
+  description: "Portfolio of Shivam Bhardwaj, a passionate Python Developer and AI Developer specializing in building scalable web applications, robust APIs, and intelligent systems.",
+  keywords: ["Shivam Bhardwaj", "Python Developer", "AI Developer", "Software Engineer", "Backend Developer", "Portfolio", "Full Stack Developer"],
+  authors: [{ name: "Shivam Bhardwaj" }],
+  creator: "Shivam Bhardwaj",
+  openGraph: {
+    title: "Shivam Bhardwaj | Python Developer & AI Developer",
+    description: "Portfolio of Shivam Bhardwaj, a passionate Python Developer and AI Developer.",
+    url: "https://bhardwaj-shivam-portfolio.netlify.app/",
+    siteName: "Shivam Bhardwaj Portfolio",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
