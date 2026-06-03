@@ -36,6 +36,8 @@ export const metadata: Metadata = {
     "AWS", 
     "Docker",
     "Telepathy Infotech",
+    "Bihar Best Developer",
+    "Best Developer in Bihar",
     "Portfolio"
   ],
   authors: [{ name: "Shivam Bhardwaj" }],
