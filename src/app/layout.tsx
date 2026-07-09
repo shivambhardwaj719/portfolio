@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Fira_Code } from "next/font/google";
+import { Inter, Fira_Code, Outfit } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -9,6 +9,11 @@ const inter = Inter({
 
 const firaCode = Fira_Code({
   variable: "--font-code",
+  subsets: ["latin"],
+});
+
+const outfit = Outfit({
+  variable: "--font-heading",
   subsets: ["latin"],
 });
 
@@ -76,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${firaCode.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${firaCode.variable} ${outfit.variable}`} suppressHydrationWarning>
       <body style={{ fontFamily: "var(--font-body)" }} suppressHydrationWarning>
         {children}
       </body>

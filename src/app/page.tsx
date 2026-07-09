@@ -306,7 +306,7 @@ export default function Home() {
           </div>
 
           <div className="hero-img-wrapper reveal delay-2">
-            <img src="/profile.png" alt="Shivam Bhardwaj" className="hero-img" />
+            <img src="images/profile.png" alt="Shivam Bhardwaj" className="hero-img" />
           </div>
         </section>
 
@@ -347,43 +347,352 @@ export default function Home() {
           <span className="section-label reveal">02 / Stack</span>
           <h2 className="reveal">Tech Stack</h2>
 
+          
           <div className="skills-wrapper reveal delay-1">
 
-            <div className="skill-row-label">// Backend &amp; Frameworks</div>
-            <div className="marquee-container">
-              <div className="marquee-content">
-                {[...Array(2)].map((_, i) => (
-                  <div key={`backend-${i}`} style={{ display: 'flex', gap: '1.2rem' }}>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9h2v9h-2z" /></svg>Django REST</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M11.8 2c-1.3 0-2.6.4-3.7 1L3 6c-1.6.9-2.5 2.6-2.5 4.5v6C.5 18.4 1.4 20 3 21l5.2 3c1.2.7 2.5 1 3.8 1s2.6-.3 3.8-1l5.2-3c1.6-.9 2.5-2.6 2.5-4.5v-6c0-1.9-.9-3.6-2.5-4.5L15.6 3c-1.1-.6-2.4-1-3.8-1zm0 18c-.8 0-1.5-.2-2.1-.6l-4.5-2.6c-1-.6-1.6-1.7-1.6-2.8v-5.2c0-1.1.6-2.2 1.6-2.8l4.5-2.6c1.3-.8 2.9-.8 4.2 0l4.5 2.6c1 .6 1.6 1.7 1.6 2.8v5.2c0 1.1-.6 2.2-1.6 2.8l-4.5 2.6c-.6.4-1.3.6-2.1.6z" /></svg>Node.js</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M19 14.5c0 1.1-.9 2-2 2h-1.5v-2H17v2h-1.5v-2h-3v2H11v-2H9.5v2H8v-2H6.5v2H5c-1.1 0-2-.9-2-2V9.5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v5z" /></svg>Flask</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13h-13L12 6.5z" /></svg>FastAPI</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 0h6v6h-6z" /></svg>Microservices</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 9h-2V7h-2v5H6v2h2v5h2v-5h2v-2z" /></svg>PostgreSQL</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /></svg>MongoDB</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /></svg>Meta APIs</span>
+            <div className="marquee-container" style={{ padding: '1rem 0' }}>
+              <div className="marquee-content bubble-track" style={{ animationDuration: '30s' }}>
+                <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
+
+                  <div className="skill-bubble" title="Python" style={{ animationDelay: '0.45s', transform: 'translateY(6px)' }}>
+                    <img src="/icons/python.svg" alt="Python" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
                   </div>
-                ))}
+                  <div className="skill-bubble" title="JavaScript" style={{ animationDelay: '1.58s', transform: 'translateY(3px)' }}>
+                    <img src="/icons/javascript.svg" alt="JavaScript" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Java" style={{ animationDelay: '0.40s', transform: 'translateY(-3px)' }}>
+                    <img src="/icons/openjdk.svg" alt="Java" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="C" style={{ animationDelay: '1.36s', transform: 'translateY(-9px)' }}>
+                    <img src="/icons/c.svg" alt="C" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Dart" style={{ animationDelay: '0.10s', transform: 'translateY(3px)' }}>
+                    <img src="/icons/dart.svg" alt="Dart" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Django" style={{ animationDelay: '1.60s', transform: 'translateY(0px)' }}>
+                    <img src="/icons/django.svg" alt="Django" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="FastAPI" style={{ animationDelay: '0.98s', transform: 'translateY(2px)' }}>
+                    <img src="/icons/fastapi.svg" alt="FastAPI" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Node.js" style={{ animationDelay: '0.52s', transform: 'translateY(5px)' }}>
+                    <img src="/icons/nodedotjs.svg" alt="Node.js" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Next.js" style={{ animationDelay: '1.88s', transform: 'translateY(-3px)' }}>
+                    <img src="/icons/nextdotjs.svg" alt="Next.js" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="React" style={{ animationDelay: '1.71s', transform: 'translateY(3px)' }}>
+                    <img src="/icons/react.svg" alt="React" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Python" style={{ animationDelay: '0.48s', transform: 'translateY(-2px)' }}>
+                    <img src="/icons/python.svg" alt="Python" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="JavaScript" style={{ animationDelay: '1.35s', transform: 'translateY(-1px)' }}>
+                    <img src="/icons/javascript.svg" alt="JavaScript" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Java" style={{ animationDelay: '1.59s', transform: 'translateY(0px)' }}>
+                    <img src="/icons/openjdk.svg" alt="Java" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="C" style={{ animationDelay: '1.02s', transform: 'translateY(2px)' }}>
+                    <img src="/icons/c.svg" alt="C" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Dart" style={{ animationDelay: '0.86s', transform: 'translateY(-10px)' }}>
+                    <img src="/icons/dart.svg" alt="Dart" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Django" style={{ animationDelay: '0.13s', transform: 'translateY(-10px)' }}>
+                    <img src="/icons/django.svg" alt="Django" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="FastAPI" style={{ animationDelay: '0.38s', transform: 'translateY(-4px)' }}>
+                    <img src="/icons/fastapi.svg" alt="FastAPI" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Node.js" style={{ animationDelay: '0.48s', transform: 'translateY(2px)' }}>
+                    <img src="/icons/nodedotjs.svg" alt="Node.js" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Next.js" style={{ animationDelay: '0.78s', transform: 'translateY(-10px)' }}>
+                    <img src="/icons/nextdotjs.svg" alt="Next.js" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="React" style={{ animationDelay: '0.55s', transform: 'translateY(-1px)' }}>
+                    <img src="/icons/react.svg" alt="React" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Python" style={{ animationDelay: '0.44s', transform: 'translateY(1px)' }}>
+                    <img src="/icons/python.svg" alt="Python" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="JavaScript" style={{ animationDelay: '1.47s', transform: 'translateY(-7px)' }}>
+                    <img src="/icons/javascript.svg" alt="JavaScript" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Java" style={{ animationDelay: '1.11s', transform: 'translateY(4px)' }}>
+                    <img src="/icons/openjdk.svg" alt="Java" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="C" style={{ animationDelay: '1.76s', transform: 'translateY(1px)' }}>
+                    <img src="/icons/c.svg" alt="C" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Dart" style={{ animationDelay: '1.50s', transform: 'translateY(8px)' }}>
+                    <img src="/icons/dart.svg" alt="Dart" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Django" style={{ animationDelay: '0.59s', transform: 'translateY(-1px)' }}>
+                    <img src="/icons/django.svg" alt="Django" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="FastAPI" style={{ animationDelay: '0.52s', transform: 'translateY(9px)' }}>
+                    <img src="/icons/fastapi.svg" alt="FastAPI" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Node.js" style={{ animationDelay: '1.44s', transform: 'translateY(1px)' }}>
+                    <img src="/icons/nodedotjs.svg" alt="Node.js" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Next.js" style={{ animationDelay: '0.90s', transform: 'translateY(0px)' }}>
+                    <img src="/icons/nextdotjs.svg" alt="Next.js" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="React" style={{ animationDelay: '1.14s', transform: 'translateY(-3px)' }}>
+                    <img src="/icons/react.svg" alt="React" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                </div>
               </div>
             </div>
+            <div className="marquee-container" style={{ padding: '1rem 0' }}>
+              <div className="marquee-content bubble-track reverse-track" style={{ animationDuration: '35s' }}>
+                <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
 
-            <div className="skill-row-label" style={{ marginTop: '0.8rem' }}>// Infrastructure &amp; Tools</div>
-            <div className="marquee-container">
-              <div className="marquee-content reverse">
-                {[...Array(2)].map((_, i) => (
-                  <div key={`infra-${i}`} style={{ display: 'flex', gap: '1.2rem' }}>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /></svg>Docker</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-4H9v4H7V8h2v4h2V8h2v8z" /></svg>Redis</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9h2v9h-2z" /></svg>AWS</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 0h6v6h-6z" /></svg>Nginx</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M19 14.5c0 1.1-.9 2-2 2h-1.5v-2H17v2h-1.5v-2h-3v2H11v-2H9.5v2H8v-2H6.5v2H5c-1.1 0-2-.9-2-2V9.5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v5z" /></svg>Linux</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13h-13L12 6.5z" /></svg>Socket.IO</span>
-                    <span className="skill-tag"><svg viewBox="0 0 24 24" className="skill-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /></svg>CI/CD Pipelines</span>
+                  <div className="skill-bubble" title="OpenAI" style={{ animationDelay: '1.97s', transform: 'translateY(-4px)' }}>
+                    <img src="/icons/openai.svg" alt="OpenAI" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
                   </div>
-                ))}
+                  <div className="skill-bubble" title="Anthropic" style={{ animationDelay: '0.81s', transform: 'translateY(-1px)' }}>
+                    <img src="/icons/anthropic.svg" alt="Anthropic" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="LangChain" style={{ animationDelay: '0.18s', transform: 'translateY(-9px)' }}>
+                    <img src="/icons/langchain.svg" alt="LangChain" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="JWT" style={{ animationDelay: '0.00s', transform: 'translateY(4px)' }}>
+                    <img src="/icons/jsonwebtokens.svg" alt="JWT" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Redux" style={{ animationDelay: '0.17s', transform: 'translateY(-6px)' }}>
+                    <img src="/icons/redux.svg" alt="Redux" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="React Hook Form" style={{ animationDelay: '1.92s', transform: 'translateY(-7px)' }}>
+                    <img src="/icons/reacthookform.svg" alt="React Hook Form" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Zod" style={{ animationDelay: '1.49s', transform: 'translateY(8px)' }}>
+                    <img src="/icons/zod.svg" alt="Zod" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Framer" style={{ animationDelay: '1.52s', transform: 'translateY(6px)' }}>
+                    <img src="/icons/framer.svg" alt="Framer" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="OpenAI" style={{ animationDelay: '1.63s', transform: 'translateY(-9px)' }}>
+                    <img src="/icons/openai.svg" alt="OpenAI" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Anthropic" style={{ animationDelay: '0.30s', transform: 'translateY(-4px)' }}>
+                    <img src="/icons/anthropic.svg" alt="Anthropic" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="LangChain" style={{ animationDelay: '1.52s', transform: 'translateY(-7px)' }}>
+                    <img src="/icons/langchain.svg" alt="LangChain" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="JWT" style={{ animationDelay: '1.42s', transform: 'translateY(-10px)' }}>
+                    <img src="/icons/jsonwebtokens.svg" alt="JWT" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Redux" style={{ animationDelay: '0.35s', transform: 'translateY(-9px)' }}>
+                    <img src="/icons/redux.svg" alt="Redux" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="React Hook Form" style={{ animationDelay: '1.37s', transform: 'translateY(5px)' }}>
+                    <img src="/icons/reacthookform.svg" alt="React Hook Form" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Zod" style={{ animationDelay: '1.38s', transform: 'translateY(-7px)' }}>
+                    <img src="/icons/zod.svg" alt="Zod" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Framer" style={{ animationDelay: '1.08s', transform: 'translateY(-1px)' }}>
+                    <img src="/icons/framer.svg" alt="Framer" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="OpenAI" style={{ animationDelay: '0.11s', transform: 'translateY(3px)' }}>
+                    <img src="/icons/openai.svg" alt="OpenAI" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Anthropic" style={{ animationDelay: '0.16s', transform: 'translateY(5px)' }}>
+                    <img src="/icons/anthropic.svg" alt="Anthropic" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="LangChain" style={{ animationDelay: '1.76s', transform: 'translateY(-10px)' }}>
+                    <img src="/icons/langchain.svg" alt="LangChain" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="JWT" style={{ animationDelay: '1.71s', transform: 'translateY(-6px)' }}>
+                    <img src="/icons/jsonwebtokens.svg" alt="JWT" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Redux" style={{ animationDelay: '0.27s', transform: 'translateY(8px)' }}>
+                    <img src="/icons/redux.svg" alt="Redux" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="React Hook Form" style={{ animationDelay: '1.23s', transform: 'translateY(5px)' }}>
+                    <img src="/icons/reacthookform.svg" alt="React Hook Form" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Zod" style={{ animationDelay: '1.17s', transform: 'translateY(1px)' }}>
+                    <img src="/icons/zod.svg" alt="Zod" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Framer" style={{ animationDelay: '1.01s', transform: 'translateY(1px)' }}>
+                    <img src="/icons/framer.svg" alt="Framer" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                </div>
               </div>
             </div>
+            <div className="marquee-container" style={{ padding: '1rem 0' }}>
+              <div className="marquee-content bubble-track" style={{ animationDuration: '40s' }}>
+                <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
 
+                  <div className="skill-bubble" title="PostgreSQL" style={{ animationDelay: '0.01s', transform: 'translateY(-9px)' }}>
+                    <img src="/icons/postgresql.svg" alt="PostgreSQL" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="MySQL" style={{ animationDelay: '1.34s', transform: 'translateY(-6px)' }}>
+                    <img src="/icons/mysql.svg" alt="MySQL" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="MongoDB" style={{ animationDelay: '1.57s', transform: 'translateY(-10px)' }}>
+                    <img src="/icons/mongodb.svg" alt="MongoDB" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Redis" style={{ animationDelay: '1.65s', transform: 'translateY(-9px)' }}>
+                    <img src="/icons/redis.svg" alt="Redis" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="AWS" style={{ animationDelay: '1.58s', transform: 'translateY(-8px)' }}>
+                    <img src="/icons/amazonaws.svg" alt="AWS" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Docker" style={{ animationDelay: '0.42s', transform: 'translateY(-10px)' }}>
+                    <img src="/icons/docker.svg" alt="Docker" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Nginx" style={{ animationDelay: '1.37s', transform: 'translateY(-4px)' }}>
+                    <img src="/icons/nginx.svg" alt="Nginx" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Linux" style={{ animationDelay: '1.17s', transform: 'translateY(3px)' }}>
+                    <img src="/icons/linux.svg" alt="Linux" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="PostgreSQL" style={{ animationDelay: '0.33s', transform: 'translateY(-1px)' }}>
+                    <img src="/icons/postgresql.svg" alt="PostgreSQL" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="MySQL" style={{ animationDelay: '0.59s', transform: 'translateY(-4px)' }}>
+                    <img src="/icons/mysql.svg" alt="MySQL" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="MongoDB" style={{ animationDelay: '1.46s', transform: 'translateY(4px)' }}>
+                    <img src="/icons/mongodb.svg" alt="MongoDB" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Redis" style={{ animationDelay: '1.84s', transform: 'translateY(6px)' }}>
+                    <img src="/icons/redis.svg" alt="Redis" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="AWS" style={{ animationDelay: '1.64s', transform: 'translateY(-8px)' }}>
+                    <img src="/icons/amazonaws.svg" alt="AWS" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Docker" style={{ animationDelay: '1.74s', transform: 'translateY(-1px)' }}>
+                    <img src="/icons/docker.svg" alt="Docker" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Nginx" style={{ animationDelay: '0.97s', transform: 'translateY(9px)' }}>
+                    <img src="/icons/nginx.svg" alt="Nginx" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Linux" style={{ animationDelay: '1.27s', transform: 'translateY(3px)' }}>
+                    <img src="/icons/linux.svg" alt="Linux" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="PostgreSQL" style={{ animationDelay: '1.57s', transform: 'translateY(5px)' }}>
+                    <img src="/icons/postgresql.svg" alt="PostgreSQL" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="MySQL" style={{ animationDelay: '1.51s', transform: 'translateY(-6px)' }}>
+                    <img src="/icons/mysql.svg" alt="MySQL" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="MongoDB" style={{ animationDelay: '1.61s', transform: 'translateY(9px)' }}>
+                    <img src="/icons/mongodb.svg" alt="MongoDB" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Redis" style={{ animationDelay: '1.76s', transform: 'translateY(-1px)' }}>
+                    <img src="/icons/redis.svg" alt="Redis" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="AWS" style={{ animationDelay: '0.27s', transform: 'translateY(-3px)' }}>
+                    <img src="/icons/amazonaws.svg" alt="AWS" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Docker" style={{ animationDelay: '1.12s', transform: 'translateY(2px)' }}>
+                    <img src="/icons/docker.svg" alt="Docker" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Nginx" style={{ animationDelay: '1.97s', transform: 'translateY(-1px)' }}>
+                    <img src="/icons/nginx.svg" alt="Nginx" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Linux" style={{ animationDelay: '1.11s', transform: 'translateY(-5px)' }}>
+                    <img src="/icons/linux.svg" alt="Linux" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="marquee-container" style={{ padding: '1rem 0' }}>
+              <div className="marquee-content bubble-track reverse-track" style={{ animationDuration: '45s' }}>
+                <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
+
+                  <div className="skill-bubble" title="Celery" style={{ animationDelay: '0.78s', transform: 'translateY(-4px)' }}>
+                    <img src="/icons/celery.svg" alt="Celery" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Socket.io" style={{ animationDelay: '0.04s', transform: 'translateY(5px)' }}>
+                    <img src="/icons/socketdotio.svg" alt="Socket.io" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Firebase" style={{ animationDelay: '1.43s', transform: 'translateY(-6px)' }}>
+                    <img src="/icons/firebase.svg" alt="Firebase" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="WebRTC" style={{ animationDelay: '1.38s', transform: 'translateY(5px)' }}>
+                    <img src="/icons/webrtc.svg" alt="WebRTC" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Git" style={{ animationDelay: '0.83s', transform: 'translateY(8px)' }}>
+                    <img src="/icons/git.svg" alt="Git" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="GitHub" style={{ animationDelay: '1.44s', transform: 'translateY(-10px)' }}>
+                    <img src="/icons/github.svg" alt="GitHub" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Postman" style={{ animationDelay: '0.30s', transform: 'translateY(-7px)' }}>
+                    <img src="/icons/postman.svg" alt="Postman" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Swagger" style={{ animationDelay: '1.31s', transform: 'translateY(0px)' }}>
+                    <img src="/icons/swagger.svg" alt="Swagger" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="VS Code" style={{ animationDelay: '0.11s', transform: 'translateY(2px)' }}>
+                    <img src="/icons/visualstudiocode.svg" alt="VS Code" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Celery" style={{ animationDelay: '0.38s', transform: 'translateY(-6px)' }}>
+                    <img src="/icons/celery.svg" alt="Celery" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Socket.io" style={{ animationDelay: '0.68s', transform: 'translateY(2px)' }}>
+                    <img src="/icons/socketdotio.svg" alt="Socket.io" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Firebase" style={{ animationDelay: '1.36s', transform: 'translateY(-8px)' }}>
+                    <img src="/icons/firebase.svg" alt="Firebase" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="WebRTC" style={{ animationDelay: '1.42s', transform: 'translateY(-2px)' }}>
+                    <img src="/icons/webrtc.svg" alt="WebRTC" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Git" style={{ animationDelay: '0.65s', transform: 'translateY(4px)' }}>
+                    <img src="/icons/git.svg" alt="Git" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="GitHub" style={{ animationDelay: '0.54s', transform: 'translateY(-7px)' }}>
+                    <img src="/icons/github.svg" alt="GitHub" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Postman" style={{ animationDelay: '1.38s', transform: 'translateY(4px)' }}>
+                    <img src="/icons/postman.svg" alt="Postman" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Swagger" style={{ animationDelay: '1.99s', transform: 'translateY(6px)' }}>
+                    <img src="/icons/swagger.svg" alt="Swagger" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="VS Code" style={{ animationDelay: '0.21s', transform: 'translateY(-9px)' }}>
+                    <img src="/icons/visualstudiocode.svg" alt="VS Code" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Celery" style={{ animationDelay: '0.29s', transform: 'translateY(-5px)' }}>
+                    <img src="/icons/celery.svg" alt="Celery" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Socket.io" style={{ animationDelay: '0.87s', transform: 'translateY(-1px)' }}>
+                    <img src="/icons/socketdotio.svg" alt="Socket.io" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Firebase" style={{ animationDelay: '0.43s', transform: 'translateY(9px)' }}>
+                    <img src="/icons/firebase.svg" alt="Firebase" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="WebRTC" style={{ animationDelay: '0.92s', transform: 'translateY(-5px)' }}>
+                    <img src="/icons/webrtc.svg" alt="WebRTC" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Git" style={{ animationDelay: '1.06s', transform: 'translateY(-8px)' }}>
+                    <img src="/icons/git.svg" alt="Git" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="GitHub" style={{ animationDelay: '1.89s', transform: 'translateY(-6px)' }}>
+                    <img src="/icons/github.svg" alt="GitHub" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Postman" style={{ animationDelay: '1.61s', transform: 'translateY(-9px)' }}>
+                    <img src="/icons/postman.svg" alt="Postman" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="Swagger" style={{ animationDelay: '0.24s', transform: 'translateY(-2px)' }}>
+                    <img src="/icons/swagger.svg" alt="Swagger" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                  <div className="skill-bubble" title="VS Code" style={{ animationDelay: '0.25s', transform: 'translateY(-6px)' }}>
+                    <img src="/icons/visualstudiocode.svg" alt="VS Code" style={{ width: '45px', height: '45px', objectFit: 'contain' }} />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -399,7 +708,7 @@ export default function Home() {
               <div className="project-card reveal delay-1">
                 <div className="project-inner">
                   <div className="project-img">
-                    <svg viewBox="0 0 24 24" className="project-icon"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 9h-2V7h-2v5H6v2h2v5h2v-5h2v-2z" /></svg>
+                    <img src="images/ent.png" alt="Dr. Vijay ENT Hospital" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'relative', zIndex: 1, opacity: 0.85 }} />
                   </div>
                   <div className="project-content">
                     <div className="project-header">
@@ -410,14 +719,19 @@ export default function Home() {
                         </a>
                       </div>
                     </div>
-                    <div className="project-role">Backend Lead</div>
-                    <p className="project-desc">
-                      Led backend development for a full-featured ENT hospital platform — architected RESTful APIs powering patient management, appointment scheduling, and clinical workflows.
-                    </p>
+                    <div className="project-role">Full Stack Developer</div>
+                    <div className="project-desc">
+                      <ul className="feature-list">
+                        <li>Built an enterprise Hospital Management Information System (HMIS) with a FastAPI microservices backend.</li>
+                        <li>Developed a strongly-typed React 19 / Next.js 15 frontend with Redux Toolkit and Zod-validated forms.</li>
+                        <li>Integrated QZ Tray for silent receipt printing, and automated PDF report generation using ReportLab.</li>
+                      </ul>
+                    </div>
                     <div className="project-tags">
-                      <span className="project-tag">Django REST Framework</span>
-                      <span className="project-tag">Healthcare</span>
-                      <span className="project-tag">Backend Lead</span>
+                      <span className="project-tag">Next.js & React</span>
+                      <span className="project-tag">Django</span>
+                      <span className="project-tag">PostgreSQL</span>
+                      <span className="project-tag">Redis</span>
                     </div>
                   </div>
                 </div>
@@ -427,7 +741,7 @@ export default function Home() {
               <div className="project-card reveal delay-2">
                 <div className="project-inner">
                   <div className="project-img">
-                    <svg viewBox="0 0 24 24" className="project-icon"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" /></svg>
+                    <img src="images/dashboard.webp" alt="OkCare Dashboard" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'relative', zIndex: 1, opacity: 0.85 }} />
                   </div>
                   <div className="project-content">
                     <div className="project-header">
@@ -438,14 +752,20 @@ export default function Home() {
                         </a>
                       </div>
                     </div>
-                    <div className="project-role">Software Developer</div>
-                    <p className="project-desc">
-                      Built backend services for OkCare, a healthcare platform focused on accessible care delivery. Engineered reliable APIs for user management, booking, and service flows.
-                    </p>
+                    <div className="project-role">Backend Developer</div>
+                    <div className="project-desc">
+                      <ul className="feature-list">
+                        <li>Engineered a multi-tenant hospital management platform tailored for multi-speciality hospitals using a scalable subscription-based model.</li>
+                        <li>Built comprehensive core modules covering patient records, real-time appointments, advanced billing, laboratory, and pharmacy operations.</li>
+                        <li>Optimized long-running background tasks and report generation by implementing asynchronous processing with Celery and RabbitMQ.</li>
+                        <li>Enforced strict HIPAA-compliant data security, including AES encryption, granular access control, and secure storage for sensitive patient records.</li>
+                      </ul>
+                    </div>
                     <div className="project-tags">
-                      <span className="project-tag">Django REST Framework</span>
-                      <span className="project-tag">Healthcare</span>
-                      <span className="project-tag">Backend</span>
+                      <span className="project-tag">Django & DRF</span>
+                      <span className="project-tag">Celery & RabbitMQ</span>
+                      <span className="project-tag">Socket.io</span>
+                      <span className="project-tag">AWS S3</span>
                     </div>
                   </div>
                 </div>
@@ -455,7 +775,7 @@ export default function Home() {
               <div className="project-card reveal delay-3">
                 <div className="project-inner">
                   <div className="project-img">
-                    <svg viewBox="0 0 24 24" className="project-icon"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" /></svg>
+                    <img src="images/homelead.webp" alt="HomeLead Platform" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'relative', zIndex: 1, opacity: 0.85 }} />
                   </div>
                   <div className="project-content">
                     <div className="project-header">
@@ -466,14 +786,20 @@ export default function Home() {
                         </a>
                       </div>
                     </div>
-                    <div className="project-role">Full Stack Integrator</div>
-                    <p className="project-desc">
-                      Integrated a complete CRM for real estate builders to manage leads, inventory, documents, and finances. Engineered SSR logic and backend API communication for real-time data flow.
-                    </p>
+                    <div className="project-role">Backend Developer</div>
+                    <div className="project-desc">
+                      <ul className="feature-list">
+                        <li>Delivered a comprehensive subscription-based SaaS real estate CRM and ERP platform specifically designed for both builders and brokers.</li>
+                        <li>Automated and managed complex workflows including leads, inventory, sales pipelines, document handling, and finance for 100+ active users.</li>
+                        <li>Migrated and rearchitected the backend on FastAPI, significantly improving request throughput and API response times.</li>
+                        <li>Implemented robust asynchronous request handling and Pydantic-based validation to ensure high performance and data integrity.</li>
+                      </ul>
+                    </div>
                     <div className="project-tags">
-                      <span className="project-tag">Next.js</span>
-                      <span className="project-tag">Real Estate</span>
-                      <span className="project-tag">Frontend</span>
+                      <span className="project-tag">FastAPI</span>
+                      <span className="project-tag">PostgreSQL</span>
+                      <span className="project-tag">Firebase</span>
+                      <span className="project-tag">AWS & Docker</span>
                     </div>
                   </div>
                 </div>
@@ -495,9 +821,13 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="project-role">Full Stack Developer</div>
-                    <p className="project-desc">
-                      Designed and built a complete HRM system from scratch — Node.js REST APIs handling employee records, payroll, and attendance, paired with a dynamic Next.js frontend.
-                    </p>
+                    <div className="project-desc">
+                      <ul className="feature-list">
+                        <li>Designed and built a complete Human Resource Management (HRM) system from scratch for enterprise use.</li>
+                        <li>Engineered Node.js REST APIs to handle complex employee records, automated payroll processing, and attendance tracking.</li>
+                        <li>Developed a dynamic, responsive frontend using Next.js to provide an intuitive administrative dashboard.</li>
+                      </ul>
+                    </div>
                     <div className="project-tags">
                       <span className="project-tag">Node.js</span>
                       <span className="project-tag">Next.js</span>
@@ -527,9 +857,13 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="project-role">Full Stack Developer (Solo)</div>
-                    <p className="project-desc">
-                      A school management system built solo with DRF and React. Covers student enrollment, attendance, gradebooks, teacher management, and fee tracking — end-to-end.
-                    </p>
+                    <div className="project-desc">
+                      <ul className="feature-list">
+                        <li>Architected and developed a comprehensive school management system from scratch using Django REST Framework and React.</li>
+                        <li>Implemented end-to-end modules for student enrollment, automated attendance tracking, and dynamic gradebooks.</li>
+                        <li>Built a secure fee tracking and financial management system with role-based access control for teachers and administrators.</li>
+                      </ul>
+                    </div>
                     <div className="project-tags">
                       <span className="project-tag">Django REST Framework</span>
                       <span className="project-tag">React.js</span>
@@ -554,27 +888,14 @@ export default function Home() {
 
             <div className="timeline-item">
               <div className="timeline-dot"></div>
-              <div className="timeline-date">Jan 2025 &mdash; Present</div>
+              <div className="timeline-date">July 2024 &mdash; Present</div>
               <div className="timeline-content">
                 <h3 className="timeline-title">Associate Software Developer @ <a href="https://telepathyinfotech.com/" target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent-primary)", textDecoration: "none" }}>Telepathy Infotech</a></h3>
-                <ul>
+                <ul className="feature-list">
                   <li>Promoted to Associate Software Developer to lead complex backend architecture and frontend user experiences.</li>
                   <li>Engineered scalable REST APIs using Django REST Framework and Node.js, ensuring high availability and secure data transmission.</li>
                   <li>Developed fast, SEO-optimized web applications with Next.js and React, enhancing overall user retention and engagement.</li>
                   <li>Collaborated directly with product teams to translate complex requirements into robust, deployable technical solutions.</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="timeline-item">
-              <div className="timeline-dot"></div>
-              <div className="timeline-date">July 2024 &mdash; Jan 2025</div>
-              <div className="timeline-content">
-                <h3 className="timeline-title">Python Intern @ <a href="https://telepathyinfotech.com/" target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent-primary)", textDecoration: "none" }}>Telepathy Infotech</a></h3>
-                <ul>
-                  <li>Joined as a Python Intern on July 1st, 2024, rapidly scaling into Full Stack responsibilities.</li>
-                  <li>Assisted in building backend modules, writing tests, and optimizing database queries for enterprise applications.</li>
-                  <li>Gained hands-on experience with Python, Django, and API integration in a fast-paced production environment.</li>
                 </ul>
               </div>
             </div>
