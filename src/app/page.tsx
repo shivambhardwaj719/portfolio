@@ -524,7 +524,7 @@ export default function Home() {
       <div className="hero-grid">
         <div className="hero-left">
           <div className="hero-label">Available for work</div>
-          <h1 className="visually-hidden">Shivam Bhardwaj - Software Developer</h1>
+          <h1 className="visually-hidden">Shivam Bhardwaj - Best Software Engineer & Developer in Katihar, Bihar (Kumhari)</h1>
           <div className="hero-name">
             SHIVAM<br />
             <span className="hero-name-outline">BHARDWAJ</span>
@@ -532,7 +532,7 @@ export default function Home() {
           <div className="hero-roles-wrapper">
             <span className="hero-role-text">{roleText}</span>
           </div>
-          <p className="hero-desc">Building scalable web applications with robust architectures, secure APIs, and high-performance systems. {expMonths}+ months of production experience.</p>
+          <p className="hero-desc">Building scalable web applications with robust architectures, secure APIs, and high-performance systems. {expMonths}+ months of production experience. Based in Kumhari, Katihar, Bihar.</p>
           <div className="hero-actions">
             <Link href="#projects" className="btn btn-primary">View Work</Link>
             <a href="/shivambhardwaj.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-outline">Download CV</a>
