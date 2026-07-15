@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import ThreeHero from "@/components/ThreeHero";
 
 const ROLES = ["Software Developer", "Backend Developer", "Full Stack Developer", "Frontend Developer", "Python Developer", "Robust System Design"];
 
@@ -130,6 +131,7 @@ export default function Home() {
   const [roleText, setRoleText] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [bubbleRadius, setBubbleRadius] = useState(42);
+  const [heroScrollProgress, setHeroScrollProgress] = useState(0);
   
   // Custom Cursor States
   const [cursorPos, setCursorPos] = useState({ x: -100, y: -100 });
@@ -496,7 +498,7 @@ export default function Home() {
     return () => clearTimeout(tid);
   }, []);
 
-  // Scroll tracking
+  // Scroll tracking + hero blast progress
   useEffect(() => {
     const h = () => {
       const secs = document.querySelectorAll("section");
@@ -506,6 +508,14 @@ export default function Home() {
       setShowScrollTop(window.scrollY > 400);
       const nav = document.getElementById("navbar");
       if (nav) { if (window.scrollY > 50) nav.classList.add("scrolled"); else nav.classList.remove("scrolled"); }
+
+      // Calculate hero scroll progress for blast effect
+      const heroEl = document.getElementById("hero");
+      if (heroEl) {
+        const heroH = heroEl.offsetHeight;
+        const progress = Math.min(1, Math.max(0, window.scrollY / (heroH * 0.6)));
+        setHeroScrollProgress(progress);
+      }
     };
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
@@ -538,7 +548,7 @@ export default function Home() {
 
   useEffect(() => { document.body.style.overflow = menuOpen ? "hidden" : ""; return () => { document.body.style.overflow = ""; }; }, [menuOpen]);
 
-  const navItems = [{ id: "hero", label: "Home" }, { id: "keyfacts", label: "About" }, { id: "skills", label: "Skills" }, { id: "projects", label: "Work" }, { id: "experience", label: "Career" }, { id: "contact", label: "Contact" }];
+  const navItems = [{ id: "hero", label: "Home" }, { id: "about", label: "About" }, { id: "skills", label: "Skills" }, { id: "projects", label: "Work" }, { id: "experience", label: "Career" }, { id: "contact", label: "Contact" }];
 
   return (<>
     {/* Custom Cursor Elements */}
@@ -569,38 +579,96 @@ export default function Home() {
 
     {/* HERO */}
     <section id="hero">
-      <div className="hero-grid">
-        <div className="hero-left">
+      {/* 3D WebGL Canvas Layer (fills the background) */}
+      <ThreeHero scrollProgress={heroScrollProgress} />
+
+      {/* Floating UI Layer */}
+      <div className="hero-ui-layer">
+        <div className="hero-ui-top">
           <div className="hero-label">Available for work</div>
-          <h1 className="visually-hidden">Shivam Bhardwaj - Best Software Engineer & Developer in Katihar, Bihar (Kumhari)</h1>
-          <div className="hero-name">
-            SHIVAM<br />
-            <span className="hero-name-outline">BHARDWAJ</span>
-          </div>
-          <div className="hero-roles-wrapper">
-            <span className="hero-role-text">{roleText}</span>
-          </div>
-          <p className="hero-desc">Building scalable web applications with robust architectures, secure APIs, and high-performance systems. {expMonths}+ months of production experience. Based in Kumhari, Katihar, Bihar.</p>
-          <div className="hero-actions">
-            <Link href="#projects" className="btn btn-primary">View Work</Link>
-            <a href="/shivambhardwaj.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-outline">Download CV</a>
-          </div>
-          <div className="social-links">
-            <a href="https://www.linkedin.com/in/shivambhardwaj1812" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg></a>
-            <a href="https://github.com/shivambhardwaj719/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
-            <a href="mailto:shivambhardwaj719@gmail.com" className="social-icon" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" /></svg></a>
-            <a href="https://wa.me/916376082733" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.347-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.876 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" /></svg></a>
+        </div>
+
+        <div className="hero-ui-middle">
+          <div className="hero-heading-area">
+            <h1 className="visually-hidden">Shivam Bhardwaj - Best Software Engineer & Developer in Katihar, Bihar (Kumhari)</h1>
+            <div className="hero-name">
+              Designed to<br />
+              <span className="hero-name-outline">mean something.</span>
+            </div>
+            <div className="hero-btn-wrapper">
+              <Link href="#projects" className="hero-start-btn">
+                START A PROJECT <span className="arrow">→</span>
+              </Link>
+            </div>
           </div>
         </div>
-        <div className="hero-right">
-          <div className="hero-img-frame">
-            <img src="images/profile_nobg.png" alt="Shivam Bhardwaj" className="hero-img" />
+
+        <div className="hero-ui-bottom">
+          <div className="hero-ui-bottom-left">
+            <Link href="#about" className="hero-scroll-down" aria-label="Scroll down">
+              <svg viewBox="0 0 24 24" className="arrow-down-svg">
+                <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" transform="rotate(180 12 12)" />
+              </svg>
+            </Link>
+          </div>
+
+          <div className="hero-ui-bottom-center">
+            {/* Scroll to Blast Guide */}
+            <div className="hold-blast-guide">
+              <span>SCROLL TO 💥 BLAST</span>
+              <p>SCROLL DOWN ⚡ TO UNLEASH.</p>
+            </div>
+          </div>
+
+          <div className="hero-ui-bottom-right">
+            <div className="experience-badge">
+              <div className="badge-year">EST. 2024</div>
+              <div className="badge-text">2+ YEARS SHAPING DIGITAL DIRECTION.</div>
+            </div>
+            <p className="hero-small-desc">
+              Websites, AI products, brands, and systems built for clarity, scale and impact.
+            </p>
           </div>
         </div>
       </div>
-      <div className="hero-scroll-indicator">
-        <span>Scroll</span>
-        <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" transform="rotate(180 12 12)" /></svg>
+    </section>
+
+    {/* ABOUT ME SECTION */}
+    <section id="about" className="about-section reveal">
+      <div className="about-container">
+        <div className="about-grid">
+          <div className="about-left">
+            <span className="about-label">— AVAILABLE FOR WORK</span>
+            <h2 className="about-heading">
+              SHIVAM<br />
+              <span className="about-heading-outline">BHARDWAJ</span>
+            </h2>
+            <div className="about-subtitle">Software</div>
+            <p className="about-desc">
+              Building scalable web applications with robust architectures, secure APIs, and high-performance systems. {expMonths}+ months of production experience. Based in Kumhari, Katihar, Bihar.
+            </p>
+            <div className="about-actions" style={{ display: 'flex', gap: '1.5rem', marginBottom: '2.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              <Link href="#projects" className="about-btn-primary">View Work</Link>
+              <a href="/shivambhardwaj.pdf" target="_blank" rel="noopener noreferrer" className="about-btn-secondary">Download CV</a>
+            </div>
+            <div className="about-social-links">
+              <a href="https://www.linkedin.com/in/shivambhardwaj1812" target="_blank" rel="noopener noreferrer" className="about-social-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', fill: 'currentColor' }}><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg></a>
+              <a href="https://github.com/shivambhardwaj719/" target="_blank" rel="noopener noreferrer" className="about-social-icon" aria-label="GitHub"><svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', fill: 'currentColor' }}><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg></a>
+              <a href="mailto:shivambhardwaj719@gmail.com" className="about-social-icon" aria-label="Email"><svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', fill: 'currentColor' }}><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" /></svg></a>
+              <a href="https://wa.me/916376082733" target="_blank" rel="noopener noreferrer" className="about-social-icon" aria-label="WhatsApp"><svg viewBox="0 0 24 24" style={{ width: '20px', height: '20px', fill: 'currentColor' }}><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.347-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.876 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" /></svg></a>
+            </div>
+          </div>
+          <div className="about-right">
+            <div className="about-img-wrapper">
+              <img src="/images/profile_nobg.png" alt="Shivam Bhardwaj" className="about-profile-img-new" />
+              <div className="about-img-fade" />
+            </div>
+          </div>
+        </div>
+        <div className="about-scroll-indicator">
+          <span>SCROLL</span>
+          <span className="scroll-arrow">↓</span>
+        </div>
       </div>
     </section>
 
