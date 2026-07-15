@@ -129,6 +129,7 @@ export default function Home() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [roleText, setRoleText] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
+  const [bubbleRadius, setBubbleRadius] = useState(42);
   
   // Custom Cursor States
   const [cursorPos, setCursorPos] = useState({ x: -100, y: -100 });
@@ -161,7 +162,16 @@ export default function Home() {
     const rect = containerRef.current.getBoundingClientRect();
     const width = rect.width || 1200;
     const height = rect.height || 600;
-    const radius = 42; // 84px diameter
+    
+    const getRadiusForWidth = (w: number) => {
+      if (w < 480) return 22;
+      if (w < 768) return 28;
+      if (w < 1024) return 34;
+      return 42;
+    };
+    
+    const radius = getRadiusForWidth(width);
+    setBubbleRadius(radius);
 
     bubblesRef.current = SKILLS.map((s, idx) => {
       const x = radius + Math.random() * (width - radius * 2);
@@ -179,6 +189,40 @@ export default function Home() {
         color: "rgba(255, 255, 255, 0.04)"
       };
     });
+  }, []);
+
+  // Handle window resizing to adjust bubble size and keep bubbles within new boundaries
+  useEffect(() => {
+    const handleResize = () => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const width = rect.width || 1200;
+      const height = rect.height || 600;
+      
+      const getRadiusForWidth = (w: number) => {
+        if (w < 480) return 22;
+        if (w < 768) return 28;
+        if (w < 1024) return 34;
+        return 42;
+      };
+      
+      const newRadius = getRadiusForWidth(width);
+      setBubbleRadius(newRadius);
+      
+      if (bubblesRef.current.length > 0) {
+        bubblesRef.current.forEach(b => {
+          b.radius = newRadius;
+          // Constrain within bounds
+          if (b.x < newRadius) b.x = newRadius;
+          if (b.x > width - newRadius) b.x = width - newRadius;
+          if (b.y < newRadius) b.y = newRadius;
+          if (b.y > height - newRadius) b.y = height - newRadius;
+        });
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Physics animation loop using Direct DOM manipulation via translate3d for 120+ FPS hardware acceleration!
@@ -351,17 +395,21 @@ export default function Home() {
     const handleMouseMove = (e: MouseEvent) => {
       if (dragInfo.current === null || !containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
-      const mouseX = Math.max(42, Math.min(rect.width - 42, e.clientX - rect.left));
-      const mouseY = Math.max(42, Math.min(rect.height - 42, e.clientY - rect.top));
+      const b = bubblesRef.current[dragInfo.current.index];
+      const radius = b ? b.radius : 42;
+      const mouseX = Math.max(radius, Math.min(rect.width - radius, e.clientX - rect.left));
+      const mouseY = Math.max(radius, Math.min(rect.height - radius, e.clientY - rect.top));
       mousePos.current = { x: mouseX, y: mouseY };
     };
 
     const handleTouchMove = (e: TouchEvent) => {
       if (dragInfo.current === null || !containerRef.current || e.touches.length === 0) return;
       const rect = containerRef.current.getBoundingClientRect();
+      const b = bubblesRef.current[dragInfo.current.index];
+      const radius = b ? b.radius : 42;
       const touch = e.touches[0];
-      const mouseX = Math.max(42, Math.min(rect.width - 42, touch.clientX - rect.left));
-      const mouseY = Math.max(42, Math.min(rect.height - 42, touch.clientY - rect.top));
+      const mouseX = Math.max(radius, Math.min(rect.width - radius, touch.clientX - rect.left));
+      const mouseY = Math.max(radius, Math.min(rect.height - radius, touch.clientY - rect.top));
       mousePos.current = { x: mouseX, y: mouseY };
     };
 
@@ -602,7 +650,7 @@ export default function Home() {
         {/* Drag & Play sandbox container */}
         <div className="skills-playground" ref={containerRef}>
           {SKILLS.map((s, idx) => {
-            const radius = 42;
+            const radius = bubbleRadius;
 
             return (
               <div
@@ -625,7 +673,14 @@ export default function Home() {
                   willChange: "transform"
                 }}
               >
-                <img src={s.i} alt={s.n} />
+                <img 
+                  src={s.i} 
+                  alt={s.n} 
+                  style={{
+                    width: `${radius * 1.14}px`,
+                    height: `${radius * 1.14}px`
+                  }}
+                />
               </div>
             );
           })}

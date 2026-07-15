@@ -26,6 +26,10 @@ html {
   cursor: none; /* Hide default cursor for custom experience */
 }
 
+section {
+  scroll-margin-top: 100px;
+}
+
 body {
   background: var(--bg);
   color: var(--text-primary);
