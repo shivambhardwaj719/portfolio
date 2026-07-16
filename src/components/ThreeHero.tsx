@@ -21,8 +21,8 @@ export default function ThreeHero({ scrollProgress = 0 }: ThreeHeroProps) {
     if (!canvasRef.current || !containerRef.current) return;
 
     let isMounted = true;
-    const width = containerRef.current.clientWidth;
-    const height = containerRef.current.clientHeight;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
 
     // 1. Scene, Camera, Renderer
     const scene = new THREE.Scene();
@@ -475,8 +475,8 @@ export default function ThreeHero({ scrollProgress = 0 }: ThreeHeroProps) {
 
     const handleResize = () => {
       if (!canvasRef.current || !containerRef.current) return;
-      const w = containerRef.current.clientWidth;
-      const h = containerRef.current.clientHeight;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
       camera.aspect = w / h;
       camera.position.setZ(getCameraZ(w, h));
       camera.updateProjectionMatrix();
