@@ -27,7 +27,8 @@ export default function ThreeHero({ scrollProgress = 0 }: ThreeHeroProps) {
     // 1. Scene, Camera, Renderer
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    camera.position.set(0, 0, 7.5);
+    const getCameraZ = (w: number, h: number) => Math.max(7.5, 12 * (h / w) * 0.5);
+    camera.position.set(0, 0, getCameraZ(width, height));
 
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
@@ -72,7 +73,7 @@ export default function ThreeHero({ scrollProgress = 0 }: ThreeHeroProps) {
     const outlineMaterialBlue = new THREE.LineBasicMaterial({ color: 0x3776ab, linewidth: 1.5 });
     const outlineMaterialYellow = new THREE.LineBasicMaterial({ color: 0xffd43b, linewidth: 1.5 });
 
-    // 4. Python Logo from SVG
+    // 4. Python Logo from SVG (Shatter Effect)
     const pythonGroup = new THREE.Group();
     pythonGroup.position.set(0, 0, 0);
     modelsGroup.add(pythonGroup);
@@ -84,17 +85,57 @@ export default function ThreeHero({ scrollProgress = 0 }: ThreeHeroProps) {
         const shapes = SVGLoader.createShapes(path);
         const isBlueColor = pathIdx === 0;
         shapes.forEach((shape) => {
-          const pyGeo = new THREE.ExtrudeGeometry(shape, {
+          let pyGeo: THREE.BufferGeometry = new THREE.ExtrudeGeometry(shape, {
             depth: 1.0, bevelEnabled: true,
             bevelSegments: 3, steps: 1,
             bevelSize: 0.15, bevelThickness: 0.15,
           });
           pyGeo.translate(-16, -16, -0.5);
           pyGeo.scale(0.135, -0.135, 0.135);
-          const pyMesh = new THREE.Mesh(pyGeo, isBlueColor ? blueGlassMaterial : yellowGlassMaterial);
-          const pyEdges = new THREE.EdgesGeometry(pyGeo, 25);
-          const pyLine = new THREE.LineSegments(pyEdges, isBlueColor ? outlineMaterialBlue : outlineMaterialYellow);
-          pyMesh.add(pyLine);
+          
+          // Make geometry non-indexed so every triangle is independent
+          pyGeo = pyGeo.toNonIndexed(); 
+          pyGeo.computeVertexNormals();
+          
+          const posAttr = pyGeo.getAttribute('position');
+          const vertexCount = posAttr.count;
+          const originalPositions = new Float32Array(posAttr.array);
+          const blastVectors = new Float32Array(vertexCount * 3);
+          
+          for (let i = 0; i < vertexCount; i += 3) {
+            // Calculate the center (centroid) of the triangle
+            const cx = (originalPositions[i*3] + originalPositions[(i+1)*3] + originalPositions[(i+2)*3]) / 3;
+            const cy = (originalPositions[i*3+1] + originalPositions[(i+1)*3+1] + originalPositions[(i+2)*3+1]) / 3;
+            const cz = (originalPositions[i*3+2] + originalPositions[(i+1)*3+2] + originalPositions[(i+2)*3+2]) / 3;
+            
+            // Blast direction outwards from center + randomness
+            const dir = new THREE.Vector3(cx, cy, cz).normalize();
+            dir.x += (Math.random() - 0.5) * 1.5;
+            dir.y += (Math.random() - 0.5) * 1.5;
+            dir.z += (Math.random() - 0.5) * 1.5;
+            dir.normalize().multiplyScalar(4 + Math.random() * 8); // Spread and speed variance
+            
+            // Apply this direction vector to all 3 vertices of the triangle
+            for(let j=0; j<3; j++) {
+              blastVectors[(i+j)*3] = dir.x;
+              blastVectors[(i+j)*3+1] = dir.y;
+              blastVectors[(i+j)*3+2] = dir.z;
+            }
+          }
+          
+          pyGeo.setAttribute('originalPosition', new THREE.BufferAttribute(originalPositions, 3));
+          pyGeo.setAttribute('blastVector', new THREE.BufferAttribute(blastVectors, 3));
+
+          // Create dynamic material using the exact SVG path color
+          const svgMaterial = new THREE.MeshPhysicalMaterial({
+            color: path.color,
+            roughness: 0.18, metalness: 0.1,
+            clearcoat: 1.0, clearcoatRoughness: 0.05,
+            side: THREE.DoubleSide,
+          });
+
+          // Create the mesh (no wireframe to make the shatter effect look cleaner)
+          const pyMesh = new THREE.Mesh(pyGeo, svgMaterial);
           pythonGroup.add(pyMesh);
         });
       });
@@ -375,43 +416,57 @@ export default function ThreeHero({ scrollProgress = 0 }: ThreeHeroProps) {
       dustParticles.rotation.y = time * 0.015;
       pythonGroup.rotation.y = -time * 0.18;
 
-      // Scroll-driven blast
-      if (isBlasting) {
-        const intensity = Math.min(scrollRef.current * 2, 1); // ramp up fast
-        pythonScale += (0.0 - pythonScale) * 0.15;
-        blastMat.opacity += (intensity - blastMat.opacity) * 0.1;
-
-        const positions = blastGeo.getAttribute("position").array as Float32Array;
-        for (let i = 0; i < blastParticlesCount; i++) {
-          positions[i * 3] += blastVelocities[i].x;
-          positions[i * 3 + 1] += blastVelocities[i].y;
-          positions[i * 3 + 2] += blastVelocities[i].z;
-          blastVelocities[i].multiplyScalar(0.988);
-        }
-        blastGeo.getAttribute("position").needsUpdate = true;
-      } else {
-        pythonScale += (1.0 - pythonScale) * 0.12;
-        blastMat.opacity += (0.0 - blastMat.opacity) * 0.15;
-
-        const positions = blastGeo.getAttribute("position").array as Float32Array;
-        for (let i = 0; i < blastParticlesCount; i++) {
-          positions[i * 3] += (0.0 - positions[i * 3]) * 0.15;
-          positions[i * 3 + 1] += (0.0 - positions[i * 3 + 1]) * 0.15;
-          positions[i * 3 + 2] += (0.0 - positions[i * 3 + 2]) * 0.15;
-
-          if (Math.abs(positions[i * 3]) < 0.05) {
-            const theta = Math.random() * Math.PI * 2;
-            const phi = Math.acos(Math.random() * 2 - 1);
-            const speed = 0.08 + Math.random() * 0.25;
-            blastVelocities[i].set(
-              Math.sin(phi) * Math.cos(theta) * speed,
-              Math.sin(phi) * Math.sin(theta) * speed,
-              Math.cos(phi) * speed
-            );
+      // Scroll-driven blast mapping
+      const scrollVal = Math.min(Math.max(scrollRef.current, 0), 1);
+      
+      // Python logo shatters into hundreds of triangles as you scroll
+      const targetPythonScale = Math.max(0.4, 1.0 - scrollVal * 1.5);
+      pythonScale += (targetPythonScale - pythonScale) * 0.15;
+      
+      const explosionAmount = scrollVal * 2.5; 
+      pythonGroup.children.forEach((child) => {
+        const m = child as THREE.Mesh;
+        const pos = m.geometry.getAttribute('position');
+        const orig = m.geometry.getAttribute('originalPosition');
+        const blast = m.geometry.getAttribute('blastVector');
+        
+        if (pos && orig && blast) {
+          for(let i=0; i<pos.count; i++) {
+             // Calculate target shattered position
+             const tx = orig.getX(i) + blast.getX(i) * explosionAmount;
+             const ty = orig.getY(i) + blast.getY(i) * explosionAmount;
+             const tz = orig.getZ(i) + blast.getZ(i) * explosionAmount;
+             
+             // Smoothly interpolate current vertex position
+             pos.setXYZ(i,
+                pos.getX(i) + (tx - pos.getX(i)) * 0.15,
+                pos.getY(i) + (ty - pos.getY(i)) * 0.15,
+                pos.getZ(i) + (tz - pos.getZ(i)) * 0.15
+             );
           }
+          pos.needsUpdate = true;
         }
-        blastGeo.getAttribute("position").needsUpdate = true;
+      });
+      
+      // Opacity fades in based on scroll
+      const targetOpacity = Math.min(scrollVal * 2.5, 1);
+      blastMat.opacity += (targetOpacity - blastMat.opacity) * 0.15;
+
+      const positions = blastGeo.getAttribute("position").array as Float32Array;
+      const spreadMultiplier = scrollVal * 180; // Adjust max spread distance
+
+      for (let i = 0; i < blastParticlesCount; i++) {
+        // Target position depends directly on scroll progress
+        const targetX = blastVelocities[i].x * spreadMultiplier;
+        const targetY = blastVelocities[i].y * spreadMultiplier;
+        const targetZ = blastVelocities[i].z * spreadMultiplier;
+
+        // Smoothly interpolate current position toward target position
+        positions[i * 3] += (targetX - positions[i * 3]) * 0.12;
+        positions[i * 3 + 1] += (targetY - positions[i * 3 + 1]) * 0.12;
+        positions[i * 3 + 2] += (targetZ - positions[i * 3 + 2]) * 0.12;
       }
+      blastGeo.getAttribute("position").needsUpdate = true;
 
       pythonGroup.scale.set(pythonScale, pythonScale, pythonScale);
       renderer.render(scene, camera);
@@ -423,6 +478,7 @@ export default function ThreeHero({ scrollProgress = 0 }: ThreeHeroProps) {
       const w = containerRef.current.clientWidth;
       const h = containerRef.current.clientHeight;
       camera.aspect = w / h;
+      camera.position.setZ(getCameraZ(w, h));
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
     };

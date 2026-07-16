@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import ThreeHero from "@/components/ThreeHero";
 
-const ROLES = ["Software Developer", "Backend Developer", "Full Stack Developer", "Frontend Developer", "Python Developer", "Robust System Design"];
+const ROLES = ["Software Developer", "Python Full Stack Developer", "Backend Developer", "Design Robust System"];
 
 const SKILLS = [
   { n: "Python", i: "/icons/python.svg" }, { n: "JavaScript", i: "/icons/javascript.svg" },
@@ -61,6 +61,7 @@ const PROJECTS = [
     desc: "Enterprise HMIS with FastAPI microservices backend, React 19/Next.js 15 frontend with Redux Toolkit and Zod-validated forms.",
     tags: ["Next.js", "Django", "PostgreSQL", "Redis"],
     link: "https://drvijayenthospital.com/",
+    img: "/images/vijay-ent.png",
     bullets: [
       "Built an enterprise Hospital Management Information System (HMIS) for an ENT clinical facility, with a FastAPI microservices backend spanning OPD, IPD, master data, and configuration services.",
       "Developed a strongly-typed React 19 / Next.js 15 frontend with Redux Toolkit and Zod-validated forms, backed by JWT authentication and Redis-backed caching.",
@@ -75,6 +76,7 @@ const PROJECTS = [
     desc: "Multi-tenant hospital management platform with HIPAA-compliant security, Celery async processing, and real-time features.",
     tags: ["Django & DRF", "Celery", "Socket.io", "AWS S3"],
     link: "https://okcare.in/",
+    img: "/images/okcare.webp",
     bullets: [
       "Engineered a multi-tenant hospital management platform with a subscription-based model, covering patient records, appointments, billing, laboratory, and pharmacy operations for enterprise healthcare clients.",
       "Implemented HIPAA-compliant data security across the platform, including encryption, access control, and secure storage for sensitive patient records.",
@@ -89,6 +91,7 @@ const PROJECTS = [
     desc: "SaaS real estate CRM/ERP for builders and brokers. Migrated to FastAPI with async handling for 100+ active users.",
     tags: ["FastAPI", "PostgreSQL", "Firebase", "Docker"],
     link: "https://homelead.in/",
+    img: "/images/homelead.webp",
     bullets: [
       "Delivered a subscription-based SaaS real estate CRM and ERP platform for builders and brokers, managing leads, inventory, sales pipeline, finance, and document workflows with automated follow-ups for 100+ active users.",
       "Migrated and rearchitected the backend on FastAPI, improving request throughput and API response times through asynchronous request handling and Pydantic-based validation."
@@ -509,13 +512,10 @@ export default function Home() {
       const nav = document.getElementById("navbar");
       if (nav) { if (window.scrollY > 50) nav.classList.add("scrolled"); else nav.classList.remove("scrolled"); }
 
-      // Calculate hero scroll progress for blast effect
-      const heroEl = document.getElementById("hero");
-      if (heroEl) {
-        const heroH = heroEl.offsetHeight;
-        const progress = Math.min(1, Math.max(0, window.scrollY / (heroH * 0.6)));
-        setHeroScrollProgress(progress);
-      }
+      // Calculate global scroll progress for blast effect (0 at top, 1 at bottom of page)
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+      setHeroScrollProgress(progress);
     };
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
@@ -613,11 +613,6 @@ export default function Home() {
           </div>
 
           <div className="hero-ui-bottom-center">
-            {/* Scroll to Blast Guide */}
-            <div className="hold-blast-guide">
-              <span>SCROLL TO 💥 BLAST</span>
-              <p>SCROLL DOWN ⚡ TO UNLEASH.</p>
-            </div>
           </div>
 
           <div className="hero-ui-bottom-right">
@@ -625,9 +620,6 @@ export default function Home() {
               <div className="badge-year">EST. 2024</div>
               <div className="badge-text">2+ YEARS SHAPING DIGITAL DIRECTION.</div>
             </div>
-            <p className="hero-small-desc">
-              Websites, AI products, brands, and systems built for clarity, scale and impact.
-            </p>
           </div>
         </div>
       </div>
@@ -643,7 +635,9 @@ export default function Home() {
               SHIVAM<br />
               <span className="about-heading-outline">BHARDWAJ</span>
             </h2>
-            <div className="about-subtitle">Software</div>
+            <div className="about-subtitle" style={{ minHeight: '1.6rem' }}>
+              {roleText}<span className="cursor-blink">|</span>
+            </div>
             <p className="about-desc">
               Building scalable web applications with robust architectures, secure APIs, and high-performance systems. {expMonths}+ months of production experience. Based in Kumhari, Katihar, Bihar.
             </p>
@@ -778,21 +772,30 @@ export default function Home() {
                   )}
                 </div>
               </div>
-              
-              <div className="project-card-techs">
-                {p.tags.map(t => (
-                  <span key={t} className="project-card-tech-tag">{t}</span>
-                ))}
-              </div>
+              <div className="project-card-body">
+                {p.img && (
+                  <div className="project-card-image-wrapper">
+                    <img src={p.img} alt={p.title} className="project-card-image" style={{ width: '100%', height: 'auto', objectFit: 'cover', borderRadius: '8px' }} />
+                  </div>
+                )}
+                
+                <div className="project-card-content">
+                  <div className="project-card-techs">
+                    {p.tags.map(t => (
+                      <span key={t} className="project-card-tech-tag">{t}</span>
+                    ))}
+                  </div>
 
-              <ul className="project-card-bullets">
-                {p.bullets.map((b, idx) => (
-                  <li key={idx} className="project-card-bullet">
-                    <span className="bullet-dot" />
-                    <p>{b}</p>
-                  </li>
-                ))}
-              </ul>
+                  <ul className="project-card-bullets">
+                    {p.bullets.map((b, idx) => (
+                      <li key={idx} className="project-card-bullet">
+                        <span className="bullet-dot" />
+                        <p>{b}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
           ))}
         </div>
