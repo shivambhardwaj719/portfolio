@@ -358,11 +358,35 @@ export default function ThreeHero({ scrollProgress = 0 }: ThreeHeroProps) {
       });
     };
 
+    let isHolding = false;
+    const getShakeTargets = () => document.querySelectorAll('.hero-ui-layer, section:not(#hero), .ticker-section, footer');
+
+    const onMouseDown = () => { 
+      isHolding = true; 
+      getShakeTargets().forEach(el => (el as HTMLElement).style.transition = 'none'); 
+    };
+    const onMouseUp = () => { 
+      isHolding = false; 
+      getShakeTargets().forEach(el => {
+        (el as HTMLElement).style.transform = 'translate(0px, 0px)'; 
+        (el as HTMLElement).style.transition = 'transform 0.2s';
+      });
+      document.body.style.transform = ''; 
+    };
+
     const onMouseMove = (e: MouseEvent) => {
       const rect = containerRef.current?.getBoundingClientRect();
       if (!rect) return;
       targetMouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       targetMouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+      if (isHolding) {
+         const shakeX = (Math.random() - 0.5) * 1.0 + (e.movementX * 0.03);
+         const shakeY = (Math.random() - 0.5) * 1.0 + (e.movementY * 0.03);
+         getShakeTargets().forEach(el => {
+             (el as HTMLElement).style.transform = `translate(${shakeX}px, ${shakeY}px)`;
+         });
+      }
     };
     const onTouchMove = (e: TouchEvent) => {
       if (e.touches.length === 0) return;
@@ -375,6 +399,8 @@ export default function ThreeHero({ scrollProgress = 0 }: ThreeHeroProps) {
 
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("touchmove", onTouchMove);
+    window.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mouseup", onMouseUp);
 
     // 8. Animation loop — blast driven by scrollRef
     let animId: number;
@@ -418,12 +444,13 @@ export default function ThreeHero({ scrollProgress = 0 }: ThreeHeroProps) {
 
       // Scroll-driven blast mapping
       const scrollVal = Math.min(Math.max(scrollRef.current, 0), 1);
+      const blastProgress = scrollVal; // Blast gradually over the entire page scroll
       
       // Python logo shatters into hundreds of triangles as you scroll
-      const targetPythonScale = Math.max(0.4, 1.0 - scrollVal * 1.5);
+      const targetPythonScale = Math.max(0.1, 1.0 - blastProgress * 1.2);
       pythonScale += (targetPythonScale - pythonScale) * 0.15;
       
-      const explosionAmount = scrollVal * 2.5; 
+      const explosionAmount = blastProgress * 6.0; 
       pythonGroup.children.forEach((child) => {
         const m = child as THREE.Mesh;
         const pos = m.geometry.getAttribute('position');
@@ -449,11 +476,11 @@ export default function ThreeHero({ scrollProgress = 0 }: ThreeHeroProps) {
       });
       
       // Opacity fades in based on scroll
-      const targetOpacity = Math.min(scrollVal * 2.5, 1);
+      const targetOpacity = Math.min(blastProgress * 2.0, 1.0);
       blastMat.opacity += (targetOpacity - blastMat.opacity) * 0.15;
 
       const positions = blastGeo.getAttribute("position").array as Float32Array;
-      const spreadMultiplier = scrollVal * 180; // Adjust max spread distance
+      const spreadMultiplier = blastProgress * 250; // Adjust max spread distance
 
       for (let i = 0; i < blastParticlesCount; i++) {
         // Target position depends directly on scroll progress
@@ -489,7 +516,11 @@ export default function ThreeHero({ scrollProgress = 0 }: ThreeHeroProps) {
       cancelAnimationFrame(animId);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mouseup", onMouseUp);
       window.removeEventListener("resize", handleResize);
+      document.body.style.transform = '';
+      document.body.style.transition = '';
       pythonGroup.traverse((child) => {
         if (child instanceof THREE.Mesh) child.geometry.dispose();
         if (child instanceof THREE.LineSegments) child.geometry.dispose();
