@@ -886,7 +886,7 @@ nav.scrolled {
   transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   position: relative;
   overflow: hidden;
-  background: var(--surface);
+  background: transparent;
 }
 
 .service-card::before {
@@ -922,15 +922,16 @@ nav.scrolled {
 
 .service-title {
   font-family: var(--font-heading);
-  font-size: 1.6rem;
+  font-size: 1.9rem;
   font-weight: 800;
   margin-bottom: 1.2rem;
   letter-spacing: -0.5px;
+  color: var(--text-primary);
 }
 
 .service-desc {
-  font-size: 1rem;
-  color: var(--text-muted);
+  font-size: 1.15rem;
+  color: #eaeaea;
   line-height: 1.8;
 }
 
@@ -986,7 +987,7 @@ nav.scrolled {
   position: relative;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-  background: var(--card);
+  background: transparent;
 }
 
 .fact-card:hover {
@@ -1013,8 +1014,8 @@ nav.scrolled {
 }
 
 .fact-label {
-  font-size: 0.9rem;
-  color: var(--text-muted);
+  font-size: 1.1rem;
+  color: #eaeaea;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 700;
@@ -1138,7 +1139,7 @@ nav.scrolled {
 .project-card {
   position: relative;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.015);
+  background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.05);
   overflow: hidden;
   padding: 3.5rem;
@@ -1204,10 +1205,10 @@ nav.scrolled {
 
 .project-card-num {
   font-family: var(--font-code);
-  font-size: 1rem;
+  font-size: 1.15rem;
   color: var(--accent);
   font-weight: 700;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .project-card-title {
@@ -1223,17 +1224,17 @@ nav.scrolled {
 
 .project-card-link {
   font-family: var(--font-code);
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  font-weight: 400;
+  font-size: 1.05rem;
+  color: #eaeaea;
+  font-weight: 500;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.3rem 0.8rem;
+  gap: 0.5rem;
+  padding: 0.5rem 1.2rem;
   border-radius: 50px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
   letter-spacing: 0;
   text-transform: none;
@@ -1260,14 +1261,14 @@ nav.scrolled {
 
 .project-card-role {
   font-family: var(--font-code);
-  font-size: 0.8rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.03);
-  padding: 0.4rem 1rem;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #eaeaea;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .project-card-techs {
@@ -1279,13 +1280,13 @@ nav.scrolled {
 
 .project-card-tech-tag {
   font-family: var(--font-code);
-  font-size: 0.75rem;
+  font-size: 0.95rem;
   color: var(--accent);
-  background: rgba(200, 255, 0, 0.04);
-  border: 1px solid rgba(200, 255, 0, 0.15);
-  padding: 0.3rem 0.8rem;
+  background: rgba(200, 255, 0, 0.06);
+  border: 1px solid rgba(200, 255, 0, 0.2);
+  padding: 0.5rem 1rem;
   border-radius: 50px;
-  font-weight: 500;
+  font-weight: 600;
   transition: all 0.3s ease;
 }
 
@@ -1320,9 +1321,9 @@ nav.scrolled {
 }
 
 .project-card-bullet p {
-  font-size: 1.05rem;
-  color: var(--text-muted);
-  line-height: 1.7;
+  font-size: 1.15rem;
+  color: #eaeaea;
+  line-height: 1.8;
   margin: 0;
 }
 
