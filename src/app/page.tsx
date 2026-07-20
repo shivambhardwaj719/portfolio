@@ -125,6 +125,8 @@ const PROJECTS = [
   }
 ];
 
+// Blogs have been moved to /blogs page
+
 const TICKER = "Software Developer · Backend Architecture · Frontend Development · System Design · Python · Django · FastAPI · Node.js · React · Next.js · ";
 
 export default function Home() {
@@ -548,7 +550,15 @@ export default function Home() {
 
   useEffect(() => { document.body.style.overflow = menuOpen ? "hidden" : ""; return () => { document.body.style.overflow = ""; }; }, [menuOpen]);
 
-  const navItems = [{ id: "hero", label: "Home" }, { id: "about", label: "About" }, { id: "skills", label: "Skills" }, { id: "projects", label: "Work" }, { id: "experience", label: "Career" }, { id: "contact", label: "Contact" }];
+  const navItems = [
+    { id: "hero", label: "Home", path: "/#hero" },
+    { id: "about", label: "About", path: "/#about" },
+    { id: "skills", label: "Skills", path: "/#skills" },
+    { id: "projects", label: "Work", path: "/#projects" },
+    { id: "experience", label: "Career", path: "/#experience" },
+    { id: "blogs", label: "Blogs", path: "/blogs" },
+    { id: "contact", label: "Contact", path: "/#contact" }
+  ];
 
   return (<>
     {/* Custom Cursor Elements */}
@@ -563,16 +573,16 @@ export default function Home() {
 
     {/* Mobile Menu */}
     <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
-      {navItems.map(({ id, label }) => <Link key={id} href={`#${id}`} className={activeSection === id ? "active" : ""} onClick={() => setMenuOpen(false)}>{label}</Link>)}
+      {navItems.map(({ id, label, path }) => <Link key={id} href={path} className={activeSection === id ? "active" : ""} onClick={() => setMenuOpen(false)}>{label}</Link>)}
     </div>
 
     {/* Nav */}
     <nav id="navbar">
-      <Link href="#hero" className="nav-brand" onClick={() => setMenuOpen(false)}>
+      <Link href="/#hero" className="nav-brand" onClick={() => setMenuOpen(false)}>
         <span>SB.</span>
       </Link>
       <ul className="nav-links">
-        {navItems.map(({ id, label }) => <li key={id}><Link href={`#${id}`} className={activeSection === id ? "active" : ""}>{label}</Link></li>)}
+        {navItems.map(({ id, label, path }) => <li key={id}><Link href={path} className={activeSection === id ? "active" : ""}>{label}</Link></li>)}
       </ul>
       <button className={`hamburger ${menuOpen ? "open" : ""}`} onClick={() => setMenuOpen(p => !p)} aria-label="Toggle menu"><span /><span /><span /></button>
     </nav>
